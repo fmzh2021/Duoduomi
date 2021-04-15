@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 @Component
 public class Receiver {
@@ -38,8 +39,9 @@ public class Receiver {
                     String message = new String(body, "UTF-8");
 
                     logger.debug("客户端从【"+exchangeName+"】接收数据"+message);
-                    if(message!=null)
+                    if(message!=null) {
                         handler.handler(message);
+                    }
 
                     channel.basicAck(envelope.getDeliveryTag(), false);
                 }
@@ -50,6 +52,8 @@ public class Receiver {
         } catch (IOException e) {
             e.printStackTrace();
             logger.error("接收数据异常", e);
+        } catch (TimeoutException e) {
+            e.printStackTrace();
         }
     }
 }

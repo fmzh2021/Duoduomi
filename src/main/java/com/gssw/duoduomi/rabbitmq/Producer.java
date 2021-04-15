@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 @Component
 public class Producer {
@@ -34,18 +35,24 @@ public class Producer {
         } catch (IOException e) {
             e.printStackTrace();
             logger.error("发送消息失败", e);
+        } catch (TimeoutException e) {
+            e.printStackTrace();
         } finally {
             try {
-                if(channel!=null)
+                if(channel!=null) {
                     channel.close();
+                }
             }catch (IOException e){
                 e.printStackTrace();
                 logger.error("channel关闭失败", e);
+            } catch (TimeoutException e) {
+                e.printStackTrace();
             }
 
             try {
-                if(connection!=null)
+                if(connection!=null) {
                     connection.close();
+                }
             }catch (IOException e){
                 e.printStackTrace();
                 logger.error("connection关闭失败", e);
