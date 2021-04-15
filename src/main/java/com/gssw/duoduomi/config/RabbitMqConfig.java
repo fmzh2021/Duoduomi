@@ -29,7 +29,7 @@ public class RabbitMqConfig {
         factory.setUsername(username);
         factory.setPassword(password);
 
-        logger.info("fmzh========rabbitmq地址："+host+":"+port+" 用户名："+username+"========");
+        logger.info("========rabbitmq地址："+host+":"+port+" 用户名："+username+"========");
 
         return factory;
     }
