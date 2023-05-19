@@ -30,7 +30,7 @@ public class RabbitMqConfig {
         factory.setPassword(password);
 
         logger.info("========rabbitmq地址："+host+":"+port+" 用户名："+username+"========");
-        logger.info("webhook github unsuccess");
+        logger.info("webhook github unsuccess try again");
 
         return factory;
     }
